@@ -15,7 +15,7 @@ const currentPath = Astro.url.pathname;
 <header class="sticky top-0 z-50 w-full bg-dark-navy shadow-blue-950 py-5 px-6">
   <nav class="flex items-center justify-between">
     <img
-      src="/src/assets/image.png"
+      src={`${baseUrl}/logo.png`}
       alt="LIARA"
       width="8%"
       class="object-contain ml-30"
@@ -23,14 +23,12 @@ const currentPath = Astro.url.pathname;
     <ul class="flex space-x-15 px-20">
       {
         pages.map((page) => {
-          // 2. Verifica se a página atual corresponde ao link do loop
-          // O "||" serve para garantir que sub-rotas (ex: /projetos/meu-projeto) também fiquem ativas
           const isActive = currentPath === page.href || (page.href !== '/' && currentPath.startsWith(page.href));
 
           return (
             <li>
               <a
-                href={`${baseUrl}${page.href}`}
+                href={`${baseUrl}/${page.href}`}
                 class={`text-[1rem] font-semibold transition-colors cursor-pointer 
                   ${isActive 
                     ? "text-blue-400 border-b-3 border-blue-500" 
