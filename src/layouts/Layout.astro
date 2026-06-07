@@ -3,7 +3,6 @@ import "../styles/global.css";
 import TheHeader from "../components/TheHeader.astro";
 import TheFooter from "../components/TheFooter.astro";
 import { ClientRouter } from "astro:transitions";
-
 ---
 
 <!doctype html>
@@ -17,10 +16,12 @@ import { ClientRouter } from "astro:transitions";
     <title>
       LIARA - Laboratório de Inteligência Artificial, Robótica e Automação
     </title>
-	<ClientRouter />
+    <ClientRouter />
   </head>
 
-  <body class="min-h-screen flex flex-col font-['Segoe UI', Tahoma, Geneva, Verdana, sans-serif]">
+  <body
+    class="min-h-screen flex flex-col font-['Segoe UI', Tahoma, Geneva, Verdana, sans-serif] overflow-x-hidden text-slate-900 bg-slate-50"
+  >
     <TheHeader />
 
     <main class="grow" transition:animate="initial">
@@ -32,7 +33,6 @@ import { ClientRouter } from "astro:transitions";
 </html>
 
 <style>
-
   html,
   body {
     margin: 0;
