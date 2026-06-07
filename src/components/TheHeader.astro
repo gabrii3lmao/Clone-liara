@@ -1,0 +1,47 @@
+---
+const pages = [
+  { title: "Home", href: "/" },
+  { title: "Projetos", href: "/projetos" },
+  { title: "Publicações", href: "/publicacoes" },
+  { title: "Membros", href: "/membros" },
+  { title: "Fotos", href: "/fotos" },
+];
+
+// 1. Pega o caminho atual da URL (Ex: "/" ou "/projetos")
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 w-full bg-dark-navy shadow-blue-950 py-5 px-6">
+  <nav class="flex items-center justify-between">
+    <img
+      src="/src/assets/image.png"
+      alt="LIARA"
+      width="8%"
+      class="object-contain ml-30"
+    />
+    <ul class="flex space-x-15 px-20">
+      {
+        pages.map((page) => {
+          // 2. Verifica se a página atual corresponde ao link do loop
+          // O "||" serve para garantir que sub-rotas (ex: /projetos/meu-projeto) também fiquem ativas
+          const isActive = currentPath === page.href || (page.href !== '/' && currentPath.startsWith(page.href));
+
+          return (
+            <li>
+              <a
+                href={page.href}
+                class={`text-[1rem] font-semibold transition-colors cursor-pointer 
+                  ${isActive 
+                    ? "text-blue-400 border-b-3 border-blue-500" 
+                    : "text-white hover:text-blue-400 hover:border-b-3 hover:border-blue-500"
+                  }`}
+              >
+                {page.title}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</header>

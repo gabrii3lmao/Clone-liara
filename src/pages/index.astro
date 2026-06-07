@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TheHero from "../components/TheHero.astro";
+import Card from "../components/Card.astro";
+---
+
+<Layout>
+  <TheHero
+    title="Laboratório de Inteligência Artificial, Robótica e Automação"
+  />
+
+  <div class="flex flex-col px-40 py-15 justify-center">
+    <h1 class="text-3xl font-bold text-primary-blue mb-4">
+      Bem-vindo ao LIARA
+    </h1>
+
+    <p class="text-lg text-gray-700 leading-relaxed">
+      O Laboratório de Inteligência Artificial, Robótica e Automação (LIARA) é um centro de pesquisa dedicado ao desenvolvimento de soluções inovadoras nas áreas de inteligência artificial, robótica e sistemas de automação. Nosso objetivo é promover a excelência em pesquisa, desenvolvimento tecnológico e formação de recursos humanos qualificados. 
+    </p>
+  </div>
+
+
+  <div class="flex flex-wrap justify-center gap-6 py-10">
+    <Card
+      title="Inteligência Artificial"
+      description="Pesquisa e desenvolvimento em aprendizado de máquina, visão computacional e processamento de linguagem natural."
+    />
+    <Card
+      title="Robótica"
+      description="Desenvolvimento de sistemas robóticos autônomos e semi-autônomos para aplicações diversas."
+    />
+    <Card
+      title="Automação"
+      description="Soluções em automação industrial e residencial
+    com foco em eficiência e inovação."
+    />
+  </div>
+</Layout>
