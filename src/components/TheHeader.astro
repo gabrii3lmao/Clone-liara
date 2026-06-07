@@ -1,12 +1,13 @@
 ---
 const pages = [
-  { title: "Home", href: "/" },
-  { title: "Projetos", href: "/projetos" },
-  { title: "Publicações", href: "/publicacoes" },
-  { title: "Membros", href: "/membros" },
-  { title: "Fotos", href: "/fotos" },
+  { title: "Home", href: "" },
+  { title: "Projetos", href: "projetos" },
+  { title: "Publicações", href: "publicacoes" },
+  { title: "Membros", href: "membros" },
+  { title: "Fotos", href: "fotos" },
 ];
 
+const baseUrl = import.meta.env.BASE_URL;
 // 1. Pega o caminho atual da URL (Ex: "/" ou "/projetos")
 const currentPath = Astro.url.pathname;
 ---
@@ -29,7 +30,7 @@ const currentPath = Astro.url.pathname;
           return (
             <li>
               <a
-                href={page.href}
+                href={`${baseUrl}${page.href}`}
                 class={`text-[1rem] font-semibold transition-colors cursor-pointer 
                   ${isActive 
                     ? "text-blue-400 border-b-3 border-blue-500" 
