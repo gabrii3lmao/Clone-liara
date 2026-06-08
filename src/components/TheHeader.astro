@@ -1,14 +1,17 @@
 ---
+// TheHeader.astro
 const pages = [
-  { title: "Home", href: "" },
-  { title: "Projetos", href: "projetos" },
-  { title: "Publicações", href: "publicacoes" },
-  { title: "Membros", href: "membros" },
-  { title: "Fotos", href: "fotos" },
+  { title: "Home", href: "/" }, // Set to standard root slash
+  { title: "Projetos", href: "/projetos" },
+  { title: "Publicações", href: "/publicacoes" },
+  { title: "Membros", href: "/membros" },
+  { title: "Fotos", href: "/fotos" },
 ];
 
-const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 const currentPath = Astro.url.pathname;
+
+const normalize = (path: string) => path.replace(/\/$/, "") || "/";
+const normalizedCurrent = normalize(currentPath);
 ---
 
 <header
@@ -17,8 +20,9 @@ const currentPath = Astro.url.pathname;
   <nav
     class="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-4 md:gap-0"
   >
+    {/* Direct clean root path for local assets */}
     <img
-      src={`${baseUrl}/logo.png`}
+      src="/logo.png"
       alt="LIARA"
       class="object-contain w-16 sm:w-20 md:w-24"
     />
@@ -28,20 +32,18 @@ const currentPath = Astro.url.pathname;
     >
       {
         pages.map((page) => {
-          const fullLinkPath =
-            page.href === "" ? `${baseUrl}/` : `${baseUrl}/${page.href}`;
-          const normalizedCurrent = currentPath.replace(/\/$/, "");
-          const normalizedLink = fullLinkPath.replace(/\/$/, "");
+          const normalizedLink = normalize(page.href);
 
           const isActive =
-            normalizedCurrent === normalizedLink ||
-            (page.href !== "" &&
-              normalizedCurrent.startsWith(normalizedLink + "/"));
+            page.href === "/"
+              ? normalizedCurrent === "/"
+              : normalizedCurrent === normalizedLink ||
+                normalizedCurrent.startsWith(normalizedLink + "/");
 
           return (
             <li>
               <a
-                href={fullLinkPath}
+                href={page.href}
                 class={`text-sm md:text-[1rem] font-semibold transition-all duration-200 cursor-pointer pb-1 whitespace-nowrap
                   ${
                     isActive

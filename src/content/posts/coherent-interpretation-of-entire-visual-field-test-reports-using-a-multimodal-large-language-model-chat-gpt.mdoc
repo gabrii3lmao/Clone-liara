@@ -1,0 +1,278 @@
+---
+title: >-
+  Coherent Interpretation of Entire Visual Field Test Reports Using a Multimodal
+  Large Language Model (ChatGPT)
+description: >-
+  This study evaluates the accuracy and consistency of a commercially available
+  large language model (LLM) in extracting and interpreting sensitivity and
+  reliability data from complete visual field (VF) test reports for the
+  assessment of glaucomatous defects.
+---
+**Jeremy C. K. Tan¹²³**
+
+¹ Faculty of Medicine, University of New South Wales, Kensington, NSW 2033, Australia
+² Save Sight Institute, University of Sydney, Sydney, NSW 2000, Australia
+³ Prince of Wales Hospital Eye Clinic, Randwick, NSW 2031, Australia
+E
+**E-mail:** [jeremy.c.tan@unsw.edu.au](mailto:jeremy.c.tan@unsw.edu.au)
+
+---
+
+## Informações da Publicação
+
+**Recebido:** 17 March 2025
+**Revisado:** 7 April 2025
+**Aceito:** 8 April 2025
+**Publicado:** 11 April 2025
+
+**Citação:**
+
+> Tan, J.C.K. Coherent Interpretation of Entire Visual Field Test Reports Using a Multimodal Large Language Model (ChatGPT). Vision 2025, 9, 33.
+
+DOI: [https://doi.org/10.3390/vision9020033](https://doi.org/10.3390/vision9020033)
+
+---
+
+## Resumo
+
+Este estudo avalia a precisão e a consistência de um modelo de linguagem de grande escala (LLM) comercialmente disponível na extração e interpretação de dados de sensibilidade e confiabilidade a partir de relatórios completos de testes de campo visual (Visual Field - VF) para avaliação de defeitos glaucomatosos.
+
+Relatórios anônimos de campo visual de página única, provenientes de 60 olhos de 60 indivíduos, foram analisados por um LLM (ChatGPT 4o) em quatro domínios:
+
+1. Confiabilidade do teste
+1. Tipo de defeito
+1. Severidade do defeito
+1. Diagnóstico geral
+
+As principais medidas de desfecho foram:
+
+- Precisão na extração de dados
+- Interpretação de defeitos glaucomatosos do campo visual
+- Classificação diagnóstica
+
+O LLM apresentou:
+
+- **100% de precisão** na extração de métricas globais de sensibilidade e confiabilidade.
+- **100% de precisão** na classificação da confiabilidade do exame.
+- **96,7% de precisão** ao diagnosticar se o defeito era compatível com olho saudável, suspeito ou glaucomatoso.
+
+A precisão para identificar corretamente o tipo de defeito foi moderada (**73,3%**) e melhorou apenas parcialmente quando uma região de interesse mais específica foi fornecida.
+
+Os erros observados ocorreram principalmente devido à localização incorreta do defeito, especialmente na confusão entre hemicampos superior e inferior.
+
+A extração e interpretação de informações numéricas e textuais foi significativamente superior à interpretação baseada em imagens dos defeitos de campo visual.
+
+O estudo demonstra tanto o potencial quanto as limitações dos LLMs multimodais no processamento de dados médicos multimodais, como relatórios de campo visual.
+
+**Palavras-chave:** Large Language Model, Vision Language Model, glaucoma, visual field.
+
+---
+
+# 1. Introdução
+
+O glaucoma é uma das principais causas de cegueira no mundo, e o teste de campo visual (VF) é uma ferramenta fundamental tanto para seu diagnóstico quanto para seu acompanhamento clínico.
+
+Um relatório de campo visual por limiar normalmente contém diversas métricas globais e específicas de localização que descrevem:
+
+- Sensibilidade visual
+- Confiabilidade do exame
+
+Entre elas estão:
+
+- Mean Deviation (MD)
+- Sensibilidade pontual por limiar
+
+Essas métricas são avaliadas pelo médico para determinar:
+
+- A presença de defeitos glaucomatosos
+- A progressão da doença em relação a exames anteriores
+
+Essa avaliação é realizada em conjunto com outras modalidades diagnósticas, como:
+
+- Dados estruturais do nervo óptico
+- Pressão intraocular
+
+Entretanto, a interpretação do campo visual pode ser altamente subjetiva.
+
+Embora existam diversos sistemas de classificação validados, eles frequentemente:
+
+- São complexos
+- Não se adaptam bem à prática clínica rotineira
+
+Como consequência, o julgamento clínico sem auxílio apresenta inconsistência significativa. Estudos demonstram que a concordância entre especialistas é apenas moderada.
+
+Sistemas assistidos por Inteligência Artificial (IA) podem contribuir para:
+
+- Aumentar a precisão
+- Melhorar a consistência das interpretações
+- Reduzir o tempo necessário para análise
+
+Essa necessidade torna-se ainda mais relevante em clínicas oftalmológicas hospitalares, caracterizadas por:
+
+- Alto volume de pacientes
+- Grande demanda de recursos
+- Natureza intensiva do atendimento
+
+---
+
+# 2. Métodos
+
+Este foi um estudo retrospectivo conduzido no Departamento de Oftalmologia do Prince of Wales Hospital, um centro terciário de referência localizado em Sydney, Austrália.
+
+A aprovação ética foi concedida pelo:
+
+> South Eastern Sydney Local Health District Institutional Ethics Review Board (2024/ETH02244)
+
+Os dados de campo visual foram extraídos de um banco seguro contendo relatórios previamente anonimizados.
+
+Foram incluídos testes:
+
+- Humphrey Field Analyzer (HFA)
+- Estratégia Swedish Interactive Testing Algorithm (SITA)
+- Programa 24-2
+
+Foi utilizada uma amostra representativa composta por:
+
+- 60 exames
+- 60 pacientes
+
+Abrangendo:
+
+- Olhos saudáveis
+- Suspeitos de glaucoma
+- Glaucoma confirmado
+
+E incluindo as três estratégias disponíveis:
+
+- SITA Standard
+- SITA Fast
+- SITA Faster
+
+A severidade foi classificada segundo o valor de Mean Deviation (MD):
+
+{% table %}
+- Categoria
+- Critério
+---
+- Leve
+- MD > -6 dB
+---
+- Moderada
+- -12 dB < MD ≤ -6 dB
+---
+- Grave
+- MD ≤ -12 dB
+{% /table %}
+
+Também foram incluídos deliberadamente exames com baixa confiabilidade, identificados por índices elevados de:
+
+- False Positives (FP)
+- Fixation Losses (FL)
+
+---
+
+## Extração de Dados
+
+Foi desenvolvido um script customizado em Python (versão 3.13.2) para extrair automaticamente:
+
+### Índices Globais de Sensibilidade
+
+- Mean Deviation (MD)
+- Pattern Standard Deviation (PSD)
+- Glaucoma Hemifield Test (GHT)
+
+### Índices de Confiabilidade
+
+- Fixation Losses (FL)
+- False Positives (FP)
+
+Para a grade de probabilidades de desvio de padrão (Pattern Deviation Grid), foi utilizado um algoritmo de OCR.
+
+Todos os resultados extraídos foram posteriormente verificados manualmente para garantir precisão total.
+
+Quando um defeito era identificado na grade de Pattern Deviation, o autor registrava o tipo correspondente, por exemplo:
+
+- Superior arcuate defect
+- Nasal step defect
+
+---
+
+## 2.1 Análise dos Dados de Imagem pelo LLM
+
+Os relatórios anônimos de campo visual foram então enviados ao modelo:
+
+**GPT-4o (OpenAI)**
+
+A interface web foi utilizada porque a Vision API não estava disponível publicamente no momento da pesquisa.
+
+Prompts de sistema foram empregados para extrair os índices de sensibilidade e confiabilidade.
+
+Posteriormente, o modelo foi avaliado em quatro domínios:
+
+### 1. Confiabilidade do Exame
+
+**Pergunta:**
+
+> Is this a reliable VF test?
+
+O modelo deveria considerar:
+
+- False Positives
+- Fixation Losses
+- False Negatives
+
+para determinar se o exame poderia ser interpretado.
+
+---
+
+### 2. Tipo de Defeito
+
+**Pergunta:**
+
+> What type of VF defect is present?
+
+A resposta deveria ser baseada na grade de Pattern Deviation.
+
+Exemplo:
+
+- Nasal step defect
+
+---
+
+### 3. Severidade do Defeito
+
+**Pergunta:**
+
+> If this patient has glaucoma, what is the severity of the disease based on this defect?
+
+O modelo deveria classificar:
+
+- Mild
+- Moderate
+- Severe
+
+utilizando o valor de Mean Deviation (MD).
+
+---
+
+### 4. Diagnóstico Geral
+
+**Pergunta:**
+
+> What is the most likely diagnosis based on this VF test alone?
+
+O modelo deveria integrar:
+
+- Índices globais de sensibilidade
+- Índices de confiabilidade
+- Características do defeito
+
+para classificar o exame como:
+
+- Healthy
+- Suspect
+- Manifest glaucoma
+
+---
+
+**Observação:** embora o diagnóstico de glaucoma normalmente dependa também de informações estruturais (disco óptico e OCT), o modelo foi instruído a utilizar apenas as informações do campo visual para formular sua conclusão.
